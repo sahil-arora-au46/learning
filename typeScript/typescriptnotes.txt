@@ -12,5 +12,58 @@ and modules, which enable developers to write more
 maintainable and scalable code. It also has better
 tooling and IDE support than JavaScript, which can
 improve productivity and catch errors early in the development process. 
-TypeScript is transpiled into JavaScript, which means that it can run on any JavaScript runtime, such as a web browser or a Node.js server. It has become increasingly popular in recent years, especially for large-scale web applications.
+TypeScript is transpiled into JavaScript, which means that it can run on any
+ JavaScript runtime, such as a web browser or a Node.js server. It has become increasingly 
+ popular in recent years, especially for large-scale web applications.
 why we use typescript
+TypeScript is a statically typed language that provides several benefits over plain 
+JavaScript, including improved developer experience, better scalability, enhanced readability, and compatibility with existing 
+JavaScript code. Its static typing allows for catching errors at compile-time and makes code more reliable, 
+while its object-oriented features help organize code and reduce the risk of errors as applications grow. 
+TypeScript's syntax for declaring object types and function signatures is also more concise, 
+making code easier to read and understand. 
+Finally, TypeScript's compatibility with existing JavaScript code allows for a gradual migration 
+to TypeScript without requiring a complete rewrite of the codebase.
+typescript set up 
+first check is node installed or not 
+if not install node then run
+npm install -g typescript 
+--------------tsc-"TypeScript Compiler."-------------
+TSC is a tool that helps convert TypeScript code into JavaScript code that can be 
+executed by browsers or other JavaScript environments. 
+It is used by developers to compile TypeScript files (.ts) into JavaScript files (.js). 
+This allows TypeScript code to be run in web browsers 
+or other JavaScript runtimes. In short, TSC is a TypeScript compiler that helps convert 
+TypeScript code into JavaScript code that can be executed
+ by web browsers and other JavaScript environments.
+to compile any ts file use
+tsc hello.ts
+it will comppile hello.ts into hello.js
+tsc only compile ts file to js but if there is error it work the same
+to avoid this use tsc --noEmitOnError hello.ts
+this not compile the hello.ts to hello.js if there is any kind of error
+e.g 
+make greet.ts
+
+// This is an industrial-grade general-purpose greeter function:
+function greet(person, date) {
+  console.log(`Hello ${person}, today is ${date}!`);
+}
+ 
+greet("Brendan");
+run tsc greet.ts it will console 
+Expected 2 arguments, but got 1.
+
+6   greet("Brendan")
+and create greet.js
+but if we use 
+tsc --noEmitOnError greet 
+this will console the same  and will not
+create any greet.js
+
+
+
+
+
+
+
