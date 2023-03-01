@@ -13,3 +13,4 @@ maintainable and scalable code. It also has better
 tooling and IDE support than JavaScript, which can
 improve productivity and catch errors early in the development process. 
 TypeScript is transpiled into JavaScript, which means that it can run on any JavaScript runtime, such as a web browser or a Node.js server. It has become increasingly popular in recent years, especially for large-scale web applications.
+why we use typescript
