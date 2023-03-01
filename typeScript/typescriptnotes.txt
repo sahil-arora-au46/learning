@@ -1,0 +1,15 @@
+what is typescript?
+its nothing just awraper around javascript
+which provides more functionality to javascript
+like ststic typing,compilation and OoPS
+FORMAL DEFINATION
+TypeScript is a programming language and a superset 
+of JavaScript that adds optional static typing and 
+other features to JavaScript. It was developed by
+Microsoft and released in 2012. TypeScript provides
+features such as type annotations, interfaces, classes, 
+and modules, which enable developers to write more
+maintainable and scalable code. It also has better
+tooling and IDE support than JavaScript, which can
+improve productivity and catch errors early in the development process. 
+TypeScript is transpiled into JavaScript, which means that it can run on any JavaScript runtime, such as a web browser or a Node.js server. It has become increasingly popular in recent years, especially for large-scale web applications.
