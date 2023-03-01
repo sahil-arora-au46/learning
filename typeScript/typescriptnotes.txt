@@ -60,8 +60,31 @@ but if we use
 tsc --noEmitOnError greet 
 this will console the same  and will not
 create any greet.js
+-----------type annotations---------------------
+Type annotations in programming refer to the process of specifying the data 
+type of a variable, parameter, or function return type. It is a way of explicitly 
+declaring the type of data that a variable or function is expected to store or return. 
+In statically typed languages like TypeScript, type annotations are required, as they
+help the compiler catch errors at compile-time, before the code is executed.
 
+For example, in TypeScript, we can define 
+a variable name and specify that it will hold a 
+string value by using a type annotation:
 
+let name: string = "John";
+In this example, string is the type 
+annotation that specifies that the name variable
+ will hold a string value.
+function add(x: number, y: number): number {
+  return x + y;
+}
+In this example, the add function takes two parameters 
+x and y, both of which are specified to be of type 
+number. The function returns a value that is also of 
+type number. By using type annotations in this way, 
+TypeScript can catch errors at compile-time, such as 
+if we were to try to pass a string value to the add 
+function, which would result in a type error.
 
 
 
