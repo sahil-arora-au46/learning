@@ -1,0 +1,288 @@
+git basic cammonds
+Configuring user information used across all local repositories
+git config --global user.name username
+git config --global user.email useremail
+the above command set username and email for all repo/globally to track which user is doing commit/changing repo 
+
+git config --local user.name username
+or
+git config user.name username 
+set the above config for working repo 
+git config --local user.email useremail
+or
+git config user.email useremail
+set the above config for working repo
+
+------------------------------------------------------------------------
+git init 
+initialize an existing directory as a Git repository
+--------------------------------------------------------------------------
+git clone
+git clone [url] is a Git command used to make a copy of a remote repository on your local machine. Here are some examples of different ways to use git clone:
+Clone a repository from a URL:
+ex:
+git clone https://github.com/user/repo.git
+git clone url(https)
+Clone a repository using SSH:
+git clone git@github.com:user/repo.git
+git clone SHH
+first check do you have ssh-key
+if exist check added to git-hub or not 
+if not add to git-hub path:  https://github.com/settings/keys
+
+if ssh-key not generated yet 
+then run  ssh-keygen
+then set passphrase  
+path of dir where it would save 
+Your identification has been saved in /home/sahil/.ssh/id_rsa    (private)
+Your public key has been saved in /home/sahil/.ssh/id_rsa.pub (public)
+copy ssh-key 
+goto
+ https://github.com/settings/keys and add new ssh-key
+-------------------------------------------------------------------------
+git status
+git status is a Git command that displays the current state of your working directory and staging area. It tells you which files have been modified, added, or deleted, and whether those changes have been staged or not.
+some flags for status
+-s or --short: Shows a shorter, more compact version of the status output, with each modified file shown on a single line and with the status code in the first two columns. For example, M myfile.txt means the file has been modified.
+
+-b or --branch: Shows more information about the current branch, including the name of the branch and whether it is ahead or behind the remote branch.
+
+-u or --untracked-files: Shows information about untracked files in addition to the usual modified, staged, and deleted files. This includes new files that have not yet been added to the repository, and files that have been explicitly ignored.
+
+--ignored: Shows information about ignored files. This includes files that have been explicitly ignored in the .gitignore file.
+
+-v or --verbose: Shows more detailed information about modified files, including the last commit message that affected the file.
+These flags can be combined as needed. For example, git status -sb would show a short, compact version of the status output with information about the current branch.
+--------------------------
+git add filename 
+add the file to staged area 
+git add .
+This will add all modified and new files in the working directory to the staging area.
+
+These flags can be combined with the git add command to customize its behavior according to your needs.
+
+
+-p or --patch: Allows you to interactively review and stage changes to individual lines or hunks of code within a file. This is useful when you want to selectively add changes to the staging area.
+
+-u or --update: Adds all changes made to existing tracked files in the working directory to the staging area, but does not add any new files.
+
+-A or --all: Adds all changes, including new files and deletions, to the staging area. This is equivalent to running git add . and git rm.
+
+-N or --intent-to-add: Adds a new file to the staging area, even though it does not yet exist in the working directory. This is useful when you want to commit a new file that you have not yet created.
+note :-
+ The git add -N command adds a file to the staging area with no content, indicating to Git that you intend to add this file to the repository in the future. However, it does not track any changes made to the file after it has been added to the staging area.
+
+-f or --force: Adds ignored files and directories to the staging area. By default, Git ignores certain files and directories specified in the .gitignore file. Using the -f flag overrides this behavior and forces Git to add the ignored files and directories to the staging area.
+--------------------------------------------------
+The git reset [file] command is used to unstage changes made to a file and move it back to the working directory. This command removes the changes made to the file from the staging area, but it does not delete or modify the changes made to the file in the working directory.
+----
+in simple words
+git reset filename
+unstage a file while retaining the changes in working directory
+git reset 
+it reset the staging area means all the staged changes will be upstaged after this command :-  git reset 
+
+The git reset command is a powerful command that can be used to move the current branch pointer to a different commit, unstage changes made to a file, or reset changes made to a file to a previous state. Here are some common flags that can be used with git reset:
+
+--soft: This flag moves the branch pointer to the specified commit, but does not modify the staging area or the working directory. Any changes made to files in the commit will remain staged and ready to be committed. For example:
+git reset --soft commit-sha(means key given to a commit by git which can be get by git log command)
+it dose not change any thing in file the files will remain same and the staged file remains same just add file/changes staging as per the commit-sha 
+------
+git reset --mixed commit-sha === git reset commit-sha
+this remove the staged files/changes as per commit sha 
+(means staged changed will become unstaged and added as per commit 
+ex
+git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	simplereset.txt
+git reset  a624c29
+Unstaged changes after reset:
+M	test.txt
+git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   test.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	new2.txt
+	newfile.txt
+	reset.txt
+	simplereset.txt
+)
+git reset --hard commit-sha
+--hard: This flag moves the branch pointer to the specified commit and resets the staging area and the working directory to match the specified commit. Any changes made to files in the commit will be discarded and replaced with the version of the file in the specified commit. This can be a dangerous operation, as it permanently deletes any changes made to files in the commit. 
+in simple words it will bring you back to the same commit-sha (it will modify every change that you made it even delete file that u made atfer that commit)
+---------------------------------git diff-----------------------------------------
+git diff is a command used to view the differences between two states of a Git repository. By default, it shows the differences between the working directory and the staging area (also known as the index).
+eg:
+
+sahil@sahil-Vostro-15-3515:~/Documents/basics/gitrepo$ git status 
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   gitdiff.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   gitdiff.txt
+
+sahil@sahil-Vostro-15-3515:~/Documents/basics/gitrepo$ git diff
+diff --git a/gitdiff.txt b/gitdiff.txt
+index 8020fdb..c1acf8a 100644
+--- a/gitdiff.txt
++++ b/gitdiff.txt
+@@ -1 +1 @@
+-testing diff      
+
+
+--------------diff flags-------------------------------------------------
+git diff: This shows the differences between the working directory and the staging area.
+
+git diff --cached or git diff --staged: This shows the differences between the staging area and the last commit.
+
+git diff [commit]: This shows the differences between the working directory and the specified commit.
+
+git diff [commit1] [commit2]: This shows the differences between the two specified commits.
+
+git diff [branch1] [branch2]: This shows the differences between the two specified branches.
+git diff branchB...branchA
+show the diff of what is in branchA that is not in branchB
+git diff can also take several optional flags to customize its output, such as --ignore-space-change, which ignores changes in whitespace, and --name-only, which only shows the names of the files that have changed.
+
+Overall, git diff is a powerful tool for inspecting the differences between different states of a Git repository and can be very useful for tracking changes to files over time.
+
+--------------------------------------git commit--------------------------
+The git commit command is used to save changes to the local repository. It creates a new commit object that contains a snapshot of the changes you made, along with a brief message describing the changes.
+
+When you run git commit, Git will open a text editor where you can enter a commit message. The commit message should be a brief description of the changes you made in the commit.
+----------------------------commit----flags--------------------------------------------
+-a or --all: This flag automatically stages all modified and deleted files before committing, so you don't have to run git add separately for each file.
+-m or --message: This flag allows you to provide a commit message directly on the command line, as in git commit -m "Commit message here".
+-s or --signoff: This flag adds a "Signed-off-by" line to the commit message, indicating that the author has reviewed and approved the changes.
+-e or --edit: This flag opens the commit message editor to allow you to edit the commit message before finalizing the commit.
+-n or --no-verify: This flag skips any pre-commit hooks that have been configured in the repository, allowing you to bypass any automatic checks or validations.
+-v or --verbose: This flag displays the diff of the changes being committed in the commit message editor.
+Note that the git commit command has many other flags and options that can be used to customize the commit process. You can find a full list of these flags in the Git documentation or by running git commit --help in the terminal.
+--------------------git-----branch-----------------------------------
+git branch is a command in Git that is used to create, list, delete, and manage branches in a repository. A branch in Git is simply a lightweight movable pointer to a specific commit. By default, every Git repository has a master branch, but you can create other branches to work on different features or versions of the code
+
+To create a new branch, use git branch <branch-name>. For example, git branch feature-branch will create a new branch named "feature-branch".
+To list all branches in the repository, use git branch. The current branch will be highlighted with an asterisk.
+To switch to a different branch, use git checkout <branch-name>. For example, git checkout feature-branch will switch to the "feature-branch" branch.
+--------------------------------branch--flags------------------
+-a or --all: List both local and remote branches.
+-d or --delete: Delete a branch.
+-D or --force-delete: Forcefully delete a branch, even if it contains unmerged changes.
+-m or --move: Rename a branch.
+-r or --remotes: List remote-tracking branches.
+-v or --verbose: Show more information about each branch.
+--merged: List only branches that have been merged into the current branch.
+--no-merged: List only branches that have not been merged into the current branch.
+These flags can be combined with other git branch commands to perform more complex operations. For example, git branch -d --merged feature-branch would delete the "feature-branch" branch if it has already been merged into the current branch.
+-----------git checkout-------------------------------------------------
+
+git checkout is a command in Git that allows you to switch between branches or restore files in your working directory to a specific commit or branch(if no branch or commit hash mentioned while using this it will restore changes to last commit ).
+Switching to an existing branch: You can switch to an existing branch using the command git checkout <branchname>. For example, if you have a branch called feature-branch and you want to switch to it, you would use the command git checkout feature-branch.
+
+Creating a new branch: You can create a new branch and switch to it at the same time using the command git checkout -b <newbranchname>. For example, if you want to create a new branch called new-feature-branch and switch to it, you would use the command git checkout -b new-feature-branch.
+
+Restoring a file to a specific commit or branch: You can use git checkout to restore a file in your working directory to a specific commit or branch. For example, if you want to restore the file filename.txt to the version that was last committed, you would use the command git checkout -- filename.txt.
+
+Detaching HEAD: You can use git checkout to detach HEAD from the current branch and point it to a specific commit, allowing you to examine that commit without changing any branches or files. For example, if you want to examine the commit with the hash abcdefg, you would use the command git checkout abcdefg.
+
+Note that git checkout can be a powerful and potentially dangerous command, especially when using it to switch between branches or restore files. Be sure to double-check your changes and branch names before executing the command.
+
+-b <new-branch>: Create a new branch and switch to it
+-B <branch>: Force switch to a branch, even if changes are not committed
+--track <remote-branch>: Create a new branch tracking a remote branch
+-t <remote-branch>: Switch to a remote branch and set up tracking
+-p: Allows you to selectively discard changes by interactively choosing which changes to keep and which to discard
+--detach: Detach HEAD from any branch and checkout a specific commit by its SHA-1 hash
+--merge: Checkout a branch and merge it with the current branch
+--ours: Resolve conflicts by choosing the changes from the current branch
+--theirs: Resolve conflicts by choosing the changes from the branch being checked out
+Note that some of these flags may have slightly different behaviors depending on the context in which they are used.
+
+
+
+-------------------------git merge------------------------------------
+git merge [branch]
+git merge [branch] is a Git command used to combine changes from one branch into another. The command merges the changes made in the specified branch into the current branch and creates a new merge commit to record the merge.
+
+For example, let's say you have two branches named feature and master. You make some changes to the feature branch and commit them. Later, you decide to merge the changes made in the feature branch into the master branch. To do this, you would switch to the master branch using git checkout master and then run the command git merge feature. This will merge the changes made in the feature branch into the master branch.
+
+It's important to note that merging can sometimes result in conflicts if the same lines of code have been modified in both branches. In such cases, Git will prompt you to resolve the conflicts manually before the merge can be completed.
+
+---------------------------flags----------
+--no-ff: This flag ensures that a merge commit is always created, even if Git could do a fast-forward merge. This can be useful for keeping a linear history or for indicating that a feature branch was merged into the main branch.
+--ff-only: This flag ensures that only fast-forward merges are allowed, and will fail if Git cannot perform a fast-forward merge. This can be useful if you only want to merge branches that have a linear history.
+--squash: This flag combines all the changes from the merged branch into a single new commit, rather than creating a merge commit. This can be useful for keeping a clean and concise commit history, but it can also make it harder to trace the origin of changes.
+--strategy: This flag allows you to specify the merge strategy to use when merging. Some commonly used strategies include recursive (the default), ours (always favor the current branch), and theirs (always favor the branch being merged). There are also various custom strategies available.
+
+--abort: This flag cancels an in-progress merge operation and restores the repository to its previous state.
+
+------------------------------------git log--------------------------------------
+
+git log is a command that displays the commit history of a Git repository. By default, it displays a list of commits in reverse chronological order (i.e., newest commits first), with each commit's hash, author, date, and commit message.
+
+The git log command has many options that can be used to customize the output. Some commonly used options include:
+
+
+git log --follow [file]
+show the commits that changed file, even across renames
+
+
+--oneline: Displays each commit on a single line, with its hash and message only.
+--graph: Adds ASCII art depicting the branch and merge history of the repository.
+--author: Filters the output to show only commits by the specified author.
+--since: Filters the output to show only commits made after the specified date.
+--until: Filters the output to show only commits made before the specified date.
+For example, git log --oneline --author="John Doe" would display a list of all commits by John Doe, with each commit's hash and message on a single line.
+-------------------------------remote repo---------------------------
+way of creating remote repo to local
+-------------------------1 git clone---------------------------------
+git clone: This command is used to clone a remote repository to your local machine. For example, if you want to clone a repository named "my-repo" from GitHub, you would run the following command: git clone https://github.com/my-username/my-repo.git
+in git clone url 
+it clone every branch but does not show while u use git branch but they exit to get all branches use git branch -a 
+
+git clone --single-branch -b branchname <repository_url> 
+Clone only the specified branch and not all the branches from the remote repository.
+git clone --depth <depth>: Clone only the specified number of commits deep from the remote repository. This can save time and disk space, especially for large repositories.
+git clone --depth 3 repourl Clone only the  first 2 of commits
+
+-----------------------git remote add <name> <url>-----------------
+<name>: The name you want to give to the remote repository. This is usually origin, but you can choose any name you like.
+<url>: The URL of the remote repository. This can be a HTTPS or SSH URL.
+
+git remote -v: This command is used to list all the remote repositories associated with your local Git repository.
+git remote show: This command is used to display information about a specific remote repository.
+git remote rename: This command is used to rename a remote repository.
+git remote remove: This command is used to remove a remote repository from your local Git repository.
+----------------------config remote to sync-----------------------
+git remote add <name> <url>
+here url must be of original repository not of forked repository
+ to compare your local and remote feature branch before “forced push”
+ $ git diff <master_branch_path> <remote_branch_path>
+ e.g 
+ $ git diff master upstream/master   
+ Where master is your local branch and origin/master is your remote branch.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
