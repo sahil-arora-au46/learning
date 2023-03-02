@@ -2,6 +2,7 @@ what is typescript?
 its nothing just awraper around javascript
 which provides more functionality to javascript
 like ststic typing,compilation and OoPS
+it is used as a development tool
 FORMAL DEFINATION
 TypeScript is a programming language and a superset 
 of JavaScript that adds optional static typing and 
@@ -77,7 +78,33 @@ of a variable, or finding all references to a given
  variable
 
 -----------type annotations---------------------
-for snipits onen typyAnnotation.ts
+-------------------types------------------
+primitives
+number,string and boolean
+-----------any--------
+TypeScript also has a special type, any, that you can 
+use whenever you don’t want a particular value to 
+cause typechecking errors.
+let obj: any = { x: 0 };
+// None of the following lines of code will throw compiler errors.
+// Using `any` disables all further type checking, and it is assumed 
+// you know the environment better than TypeScript.
+obj.foo();
+obj();
+obj.bar = 100;
+obj = "hello";
+const n: number = obj;
+
+When a value is of type any, you can access any properties of it (which will in turn be of type any), call it like a function, assign it to (or from) a value of any type, or pretty much anything else that’s syntactically legal:
+----------------Explicit Types--------------------
+we can annotate by useing semi-colon 
+let age : number = 25
+let name : string = "username"
+let isPaid = false
+
+
+----------------types-end-----------------
+for snippets onen typyAnnotation.ts
 Type annotations in programming refer to the process of specifying the data 
 type of a variable, parameter, or function return type. It is a way of explicitly 
 declaring the type of data that a variable or function is expected to store or return. 
@@ -102,16 +129,11 @@ type number. By using type annotations in this way,
 TypeScript can catch errors at compile-time, such as 
 if we were to try to pass a string value to the add 
 function, which would result in a type error.
-----------------Explicit Types--------------------
-we can annotate by useing semi-colon 
-let age : number = 25
-let name : string = "username"
-function add(x:number,y:number) : number{    //function():type{} this annotate return type
-  return x+y
-}
 
 
 ----------------------type-annoptation-end-------------------------
+-------------------------type annotation on array-----------------------------
+
 ---------------------downleveling--------------
 the ability to rewrite code from newer versions of 
 ECMAScript to older ones such as ECMAScript 3 or 
