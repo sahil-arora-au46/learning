@@ -102,8 +102,39 @@ type number. By using type annotations in this way,
 TypeScript can catch errors at compile-time, such as 
 if we were to try to pass a string value to the add 
 function, which would result in a type error.
+----------------Explicit Types--------------------
+we can annotate by useing semi-colon 
+let age : number = 25
+let name : string = "username"
+function add(x:number,y:number) : number{    //function():type{} this annotate return type
+  return x+y
+}
 
 
-
-
+----------------------type-annoptation-end-------------------------
+---------------------downleveling--------------
+the ability to rewrite code from newer versions of 
+ECMAScript to older ones such as ECMAScript 3 or 
+ECMAScript 5 (a.k.a. ES3 and ES5). This process of 
+moving from a newer or “higher” version of ECMAScript 
+down to an older or “lower” one is sometimes called
+ downleveling.
+ By default TypeScript targets ES3(converts code in es3)
+ ----------------------"--target ECMAScript"---flag------
+function greet(person, date) {
+  console.log(`Hello ${person}, today is ${date.toDateString()}!`);
+}
+greet("Maddison", new Date());
+with tsc downleveling.ts
+downleleling.js 
+function greet(person, date) {
+    console.log("Hello ".concat(person, ", today is ").concat(date.toDateString(), "!"));
+}
+greet("Maddison", new Date());
+with tsc --target es6  downleveling.ts
+downleveling.js
+function greet(person, date) {
+    console.log(`Hello ${person}, today is ${date.toDateString()}!`);
+}
+greet("Maddison", new Date());
 

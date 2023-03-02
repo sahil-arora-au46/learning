@@ -16,6 +16,8 @@ function greet(person: string, date: Date) {
 //   error Argument of type 'string' is not 
 //   assignable to parameter of type 'Date'
 
-function add(a,b):number{
-    return a+b
-}
+let userAge = "28"
+// here TypeScript can even just infer (or “figure out”) 
+// the types for us even if we omit them.
+userAge = 28
+//error Type 'number' is not assignable to type 'string'.
