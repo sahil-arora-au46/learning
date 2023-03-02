@@ -39,6 +39,7 @@ TypeScript code into JavaScript code that can be executed
 to compile any ts file use
 tsc hello.ts
 it will comppile hello.ts into hello.js
+-------------------"--noEmitOnError"---------------------
 tsc only compile ts file to js but if there is error it work the same
 to avoid this use tsc --noEmitOnError hello.ts
 this not compile the hello.ts to hello.js if there is any kind of error
@@ -60,7 +61,23 @@ but if we use
 tsc --noEmitOnError greet 
 this will console the same  and will not
 create any greet.js
+-----------------tools-----------------
+The type-checker has information to check things 
+like whether we’re accessing the right properties
+ on variables and other properties. Once it has that 
+ information, it can also start suggesting which 
+ properties you might want to use.
+try :
+https://www.typescriptlang.org/play?#code/PTAEAEDsHsFECd7XgZwFAggUxQWWgCYCuANlgJKQAuWSADmgJYC2dyVoWAHnfDiqABmSZqABE3XvzEBuNAGNokFBwCGdOqAC8nHnxQoAFAEo5adXQB0AcyxVDY4GIA0QopHlVGS0Ib4BHV31jUABvNFBQfUsULEgMMEik0AA9AB80AF9TNHMNSxJGFTjDAGYABkrTIA
+An editor that supports TypeScript can deliver 
+“quick fixes” to automatically fix errors, 
+refactorings to easily re-organize code, and 
+useful navigation features for jumping to definitions 
+of a variable, or finding all references to a given
+ variable
+
 -----------type annotations---------------------
+for snipits onen typyAnnotation.ts
 Type annotations in programming refer to the process of specifying the data 
 type of a variable, parameter, or function return type. It is a way of explicitly 
 declaring the type of data that a variable or function is expected to store or return. 
