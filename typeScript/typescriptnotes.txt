@@ -79,12 +79,110 @@ of a variable, or finding all references to a given
 
 -----------type annotations---------------------
 -------------------types------------------
-primitives
-number,string and boolean
+----------------Explicit Types--------------------
+we can annotate by useing semi-colon // assign type to fn/val/params
+let age : number = 25 // age is number
+age = "25"  // error 
+let name : string = "username"
+let isPaid = false
+-------------------some basic types----------------------
+boolean: This represents a boolean value (true or false).
+
+number: This represents a numeric value, including integers and floating-point numbers.
+
+string: This represents a string value.
+------------------undefined---------------------
+undefined :- undefined is a primitive type in TypeScript that
+ represents a value that is not defined
+ When a variable or property is declared but not 
+ initialized, its value is undefined by default.
+ undefined can also be used as a return type for a 
+ function that does not return a value.(we have use return as without return ts shows error)
+ e.g 
+ function logMessage(message: string): undefined {
+  console.log(message);
+  return undefined; or
+}
+can't do
+ function logMessage(message: string): undefined {
+  console.log(message);
+  
+}// error : A function whose declared type is neither 'void' nor 'any' must return a value.
+logMessage('Hello, world!'); // Output: "Hello, world!"
+-------------------null---------------------
+null is a primitive type in TypeScript that represents 
+the deliberate absence of any object value.
+null can be assigned to a variable, property, or parameter to explicitly indicate
+that it represents the absence of an object value.
+null is typically used in situations where a variable, property, or parameter can 
+have a value, but it may also be intentionally empty.
+e.g
+function logMessage(message?: string): void {
+  if (message != null) { // not  empty or exits
+    console.log(message);
+  } else {
+    console.log('No message provided.');
+  }
+}
+
+logMessage('Hello, world!'); // Output: "Hello, world!"
+logMessage(); // Output: "No message provided."
+
+
+
+------------void------------------------------
+void is a special type in TypeScript that represents 
+the absence of any value.
+
+When used as a function return type, it indicates 
+that the function does not return any value.
+
+Functions with a return type of void are often used 
+to perform some side effects, such as logging a message
+ to the console, updating the UI, or modifying a database.
+e.g 
+function logMessage(message: string): void {
+  console.log(message);
+}
+void can also be used as a type annotation for variables
+or properties that do not have a return value, such as
+a callback function.
+e.g
+function performAction(callback: () => void): void {
+  // Do some work here...
+  callback();
+}
+By using void, we can indicate that a function does 
+not return any value and improve the readability and 
+maintainability of our code.
+It is important to note that void is different from 
+undefined and null, which represent specific values
+ that can be assigned to variables or properties.
+ ------------never----------------------------------
+ never is a special type in TypeScript that represents 
+ a value that never occurs.
+
+ The never type is a powerful tool for expressing the 
+ behavior of functions that do not return a value, 
+ either because they throw an exception or because 
+ they enter an infinite loop.While it is possible to 
+ write functions that enter an infinite loop, such 
+ functions are generally not useful in most real-world 
+ applications, and can cause serious problems if not 
+ handled correctly.
+ e.g 
+ function throwError(message: string): never {
+  throw new Error(message);
+}
+
 -----------any--------
 TypeScript also has a special type, any, that you can 
 use whenever you don’t want a particular value to 
 cause typechecking errors.
+When a value is assigned the type any, TypeScript will
+not perform any type checking or inference on that 
+value, allowing it to be used in any context without 
+any type errors or warnings.
 let obj: any = { x: 0 };
 // None of the following lines of code will throw compiler errors.
 // Using `any` disables all further type checking, and it is assumed 
@@ -95,14 +193,99 @@ obj.bar = 100;
 obj = "hello";
 const n: number = obj;
 
-When a value is of type any, you can access any properties of it (which will in turn be of type any), call it like a function, assign it to (or from) a value of any type, or pretty much anything else that’s syntactically legal:
-----------------Explicit Types--------------------
-we can annotate by useing semi-colon 
-let age : number = 25
-let name : string = "username"
-let isPaid = false
+When a value is of type any, you can access any 
+properties of it (which will in turn be of type any), 
+call it like a function, assign it to (or from) a 
+value of any type, or pretty much anything else that’s 
+syntactically legal
+While the any type can be useful in certain cases, 
+such as when working with external or dynamic data 
+that cannot be fully typed, it is generally considered 
+a best practice to avoid using any whenever possible.
+If it is not possible to fully type a value, 
 
+TypeScript also provides other types, such as unknown 
+and never, which can be used to provide more precise 
+type information and improve the type safety of our 
+code.
+------------------unknown-----------------------------
+unknown is a type that represents a value of an 
+unknown type. It is similar to any, but imposes more 
+restrictions on how that value can be used.
+When a value is assigned the type unknown, TypeScript 
+does not know anything about the value's type or 
+structure, and cannot allow it to be used in any 
+context that requires a specific type or structure.
+e.g
+function add(a: unknown, b: unknown) {
+ return a+b              // error 'a' is of type 'unknown'.'b' is of type 'unknown'.
+}
+While unknown is more restrictive than any, it can be 
+useful in situations where we need to work with values 
+of unknown types, such as when dealing with external or
+ dynamic data that cannot be fully typed.
+  to understand diff of any and unknown
+  e.g 
+  function add(a: any, b: any) {
+  return a + b;
+} // no error
+function add(a: any, b: any) {
+  return a + b;
+}// error
+function add(a: unknown, b: unknown) {
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a + b;
+  } else {
+    throw new Error('Cannot add non-numeric values');
+  }
+}// no error 
+----------tuple-------------------------
+Tuple: This is a type that represents an array with a
+fixed number of elements of specific types.
+A tuple in TypeScript is a fixed-length array that can have elements of different types.
+ some scenarios where we can use tuples
+ Tuples can be useful in scenarios where you want to 
+ enforce a specific type and number of elements in an 
+ array. For example, you could use a tuple to 
+ represent a 2D point with an x and y coordinate:
+ let myPoint: [number, number] = [10, 20];
+ function divide(dividend: number, divisor: number): [number, number] {
+  let quotient = Math.floor(dividend / divisor);
+  let remainder = dividend % divisor;
+  return [quotient, remainder];
+}
 
+let [result, remainder] = divide(10, 3);
+It's important to note that tuples should not be used 
+for all scenarios, especially when you need to add or
+ remove elements dynamically. For those cases, an 
+ array is a better choice. Tuples are best used when 
+ you need to enforce a specific type and number of 
+ elements in an array.
+
+tuple proble of .push solved 
+let myTuple: readonly [number,string];
+let obj= {
+  num: 889,
+  name:"username"
+}
+myTuple = Object.values(obj) as [number, string];
+
+---------------enum-------------------------- 
+Enum in TypeScript is a type that represents a set of 
+named constants.
+Enums are useful when you want to represent a fixed 
+set of values in your code.
+An enum is defined using the enum keyword followed 
+by a set of constant names in curly braces.
+By default, the values of the constants are assigned 
+integer values starting from 0, but custom values can 
+also be assigned.
+You can use an enum by referring to the constant 
+names instead of using literal values.
+Enums can make your code more readable and 
+maintainable by providing a set of named constants 
+instead of using literal values throughout your code.
 ----------------types-end-----------------
 for snippets onen typyAnnotation.ts
 Type annotations in programming refer to the process of specifying the data 
@@ -160,3 +343,4 @@ function greet(person, date) {
 }
 greet("Maddison", new Date());
 
+----------------- some experiments----------------------------
