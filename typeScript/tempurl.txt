@@ -1,0 +1,3 @@
+https://www.typescriptlang.org/docs/handbook/advanced-types.html   //topic Advanced Types
+https://www.youtube.com/watch?v=3la8rtPF5gU&list=PLRAV69dS1uWRPSfKzwZsIm-Axxq-LxqhW&index=17  typescript 
+https://www.typescriptlang.org/docs/handbook/2/objects.html  // topic object types
