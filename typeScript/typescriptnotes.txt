@@ -344,3 +344,136 @@ function greet(person, date) {
 greet("Maddison", new Date());
 
 ----------------- some experiments----------------------------
+
+------------------falsy and truthy values-----------------------------
+0
+NaN
+"" (the empty string)
+0n (the bigint version of zero)
+null
+undefined
+are considered as falsy value 
+remaining are truthy values in ts
+
+
+
+------------------type-casting/ type assertion-----------------
+In TypeScript, you can use type casting to override 
+the inferred or declared type of a variable or value. 
+e.g
+const myValue: any = "hello world";
+const strLength: number = (myValue as string).length;
+console.log(strLength); // outputs 11
+
+interface User {
+    name : string;
+    email:string;
+    gender : "Male"|"Female"|"Trans";
+}
+
+interface UserData extends User {
+    age:number;
+    add : string 
+}
+
+interface Employee extends UserData {
+ salary : string
+}
+
+let user:UserData = {
+    name : "username",
+    email:"u@u.com",
+    gender: "Male",
+    age:78,
+    add: "delhi"
+
+}
+let tempUser = user as Employee
+
+
+must read :- 
+this is for above code 
+The reason why the code does not show any error 
+is that the tempUser variable is being explicitly 
+casted to the Employee type using the as keyword. 
+This tells the TypeScript compiler to assume that 
+the user object has all the properties of the Employee 
+type, even though it was declared as UserData.
+
+-----------Casting with <>--------
+let x: unknown = 'hello';
+console.log((<string>x).length);
+
+
+
+
+
+-------------------------type-casting/ type assertion - ends------------
+
+-----------------type - inference-----------------------
+• Inference means the act or process of
+reaching a conclusion about something from
+known facts.
+• TypeScript can infer the type of a variable or an
+array if it has values.
+
+
+-------------type composition----------------------------
+Type composition in TypeScript is the process of 
+creating a new type by combining two or more existing 
+types, either by merging their properties or by 
+intersecting their properties.
+ for Type Aliases we use & to combine two types 
+ e.g:
+ type user = {
+ name : string;
+ age : number
+ }
+ type userAdd = {
+  address : string
+ }
+ type userDetails = user & userAdd
+  for interface we use extends
+  e.g
+interface User {
+    name : string;
+    email:string;
+    gender : "Male"|"Female"|"Trans";
+}
+
+interface UserData extends User {
+    age:number;
+    add : string 
+}
+
+---------------structural typing--------------------
+
+When we talk about duck typing or structural typing 
+we are talking about the compatibility that different 
+types may or may not have in a given programming 
+language.
+#Understanding structural typing
+The basic rule for TypeScript’s structural type
+ system is that type A is compatible with type B 
+ if B has at least the same members as A.
+
+------------ques---------------------------
+how to do validatiopn by type in typescript 
+
+
+
+
+
+-------------------tip-tricks----------------------
+interface User {
+    email: string;
+    firstName: string;
+    lastName: string;
+    fullName: string;
+}
+function getUsers(repository: Repository): User[] {
+    const users = repository.findUsers();
+    return users.map(x => ({ id: x.id, ...x }))
+}
+ion this User[] means array of userobj which only can 
+have object of type user
