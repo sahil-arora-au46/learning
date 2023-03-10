@@ -456,8 +456,130 @@ language.
 The basic rule for TypeScript’s structural type
  system is that type A is compatible with type B 
  if B has at least the same members as A.
+--------------structural typing end --------------------
+-----------------narrowing-----------------------------------
+Type narrowing is an important concept in TypeScript 
+that allows a developer to narrow down the type of a 
+variable or expression to a more specific type, which 
+can help catch errors at compile-time and provide 
+better type safety.
+#type guard
+Type guards: TypeScript supports type guards that 
+allow you to narrow down the type of a variable 
+based on its type at runtime. Type guards can be 
+implemented using the typeof operator, the instanceof 
+operator, or user-defined functions that return a type
+ predicate.
+ e.g:-
+ function isString(value: unknown): value is string {
+  return typeof value === 'string';
+}
 
-------------ques---------------------------
+function foo(value: unknown) {
+  if (isString(value)) {
+    // value is now narrowed down to type string
+  }
+}
+class Animal {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+class Cat extends Animal {
+  meow() {
+    console.log('Meow!');
+  }
+}
+
+function isCat(animal: Animal): animal is Cat {
+  return animal instanceof Cat;
+}
+
+const animal: Animal = new Cat('Fluffy');
+
+if (isCat(animal)) {
+  // animal is now narrowed down to type Cat
+  animal.meow();
+}
+ some type guards 
+"string"
+"number"
+"bigint"
+"boolean"
+"symbol"
+"undefined"
+"object"
+"function"
+typeof null is also object 
+
+#The in operator narrowing
+JavaScript has an operator for determining if an 
+object has a property with a name: the in operator. 
+TypeScript takes this into account as a way to narrow 
+down potential types.
+For example, with the code: "value" in x. where 
+"value" is a string literal and x is a union type. 
+The “true” branch narrows x’s types which have either
+ an optional or required property value, and the 
+ “false” branch narrows to types which have an 
+ optional or missing property value.
+type Fish = { swim: () => void };
+type Bird = { fly: () => void };
+
+interface Fish { swim: () => void };// works same 
+interface Bird  { fly: () => void };
+ 
+function move(animal: Fish | Bird) {
+  if ("swim" in animal) {
+    return animal.swim();
+  }
+ 
+  return animal.fly();
+}
+
+------------------------narrowing end----------------- 
+--------------------Control flow analysis--------------
+### small but usefull concept 
+function padLeft(padding: number | string, input: string) {
+  if (typeof padding === "number") {
+    return " ".repeat(padding) + input;
+  }
+  return padding + input;
+}
+padLeft returns from within its first if block. 
+TypeScript was able to analyze this code and see 
+that the rest of the body (return padding + input;) 
+is unreachable in the case where padding is a number. 
+As a result, it was able to remove number from the 
+type of padding (narrowing from string | number to 
+string) for the rest of the function.
+-----------------type manipulation--------------------------
+## generics
+function name<Type>(param:Type):Type{
+// do something
+return param  
+}
+//if you want to return somehing instead of param just
+mention type by using type assertion
+e.g:-
+
+function compute<T>(a:T,b:T):T{
+    if(typeof a ==="string"&& typeof b === "string") {
+        return a+b as T;
+    }
+    if(typeof a ==="number"&& typeof b === "number") {
+        return a+b as T;
+    }
+    return a
+  }
+  using generic with more than one param and diff types 
+function swap<T, U>(a: T, b: U): [U, T] {
+  return [b, a];
+}
+---------------type manipulation---------------------------------
+------------ques--------------------------
 how to do validatiopn by type in typescript 
 
 
@@ -475,5 +597,5 @@ function getUsers(repository: Repository): User[] {
     const users = repository.findUsers();
     return users.map(x => ({ id: x.id, ...x }))
 }
-ion this User[] means array of userobj which only can 
+ this User[] means array of userobj which only can 
 have object of type user
