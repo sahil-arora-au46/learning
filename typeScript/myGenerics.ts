@@ -56,13 +56,8 @@ interface MyFn<Type1, Type2> {
     
     }
     return res
-<<<<<<< HEAD
-<<<<<<< HEAD
     }
-=======
-=======
->>>>>>> javascript
-    }
+
 
     // generic classes 
     class GenericNumber<NumType> {
@@ -134,9 +129,4 @@ class LinkedList<T> {
     }
     return count;
   }
-<<<<<<< HEAD
 }
->>>>>>> generic done
-=======
-}
->>>>>>> javascript

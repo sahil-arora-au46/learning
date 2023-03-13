@@ -594,7 +594,193 @@ console.log(result); // Output: "Hello world"
 let result = myIdentity<number>(42);
 console.log(result); // Output: 42
 
+
+
+// keyof operator 
+The keyof operator takes an object type and 
+produces a string or numeric literal union of 
+its keys. The following type P is the same type
+ as “x” | “y”:
+ type Point = { x: number; y: number };
+type P = keyof Point;
+it converts type of keys of a object in union type
+type Arrayish = { [n: number]: unknown };
+type A = keyof Arrayish;
+    
+type A = number
+ 
+type Mapish = { [k: string]: boolean };
+type M = keyof Mapish;
+// typeof operator 
+TypeScript adds a typeof operator you can use in a 
+type context to refer to the type of a variable or
+ property:
+ let s = "hello";
+let n: typeof s;
+
+
+//indexing typewe 
+we can use key of object to define a type 
+by indexing type
+type Person = { age: number; name: string; alive: boolean };
+type Age = Person["age"];
+type I1 = Person["age" | "name"];
+     
+type I1 = string | number
+ 
+type I2 = Person[keyof Person];
+     
+type I2 = string | number | boolean
+ 
+type AliveOrName = "alive" | "name";
+type I3 = Person[AliveOrName];
+for arrays of objects we use number to get the object type
+const MyArray = [
+  { name: "Alice", age: 15 },
+  { name: "Bob", age: 23 },
+  { name: "Eve", age: 38 },
+];
+type Person = typeof MyArray[number];
+type Age = typeof MyArray[number]["age"];
+// Or
+type Age2 = Person["age"];
+You can only use types when indexing, meaning you 
+can’t use a const to make a variable reference:
+const key = "age";
+type Age = Person[key];// error Type 'key' cannot be used as an index type.
+'key' refers to a value, but is being used as a type here. Did you mean 'typeof key'?
+
+//Conditional Types
+
+interface Animal {
+  live(): void;
+}
+interface Dog extends Animal {
+  woof(): void;
+}
+ 
+type Example1 = Dog extends Animal ? number : string;
+        
+//type Example1 = number
+ 
+type Example2 = RegExp extends Animal ? number : string;
+        
+//type Example2 = string
+Conditional types take a form that looks a little like conditional expressions (condition ? trueExpression : falseExpression) in JavaScript:
+ SomeType extends OtherType ? TrueType : FalseType;
+
 ---------------type manipulation end---------------------------------
+---------------------Utility type start-----------------
+## partial<T>
+here T is interface 
+by partial we can make propertes optional
+interface A {
+x: number
+y: number
+}
+Partial<A> = {  // new type using interface A
+x?: number
+y?: number
+}
+interface Starship {
+name: string;
+enableHyperjump: boolean;
+}
+const updateStarship = (id: number, starship: Starship)
+=> {};
+updateStarship (1, {
+name: 'Explorer' // error as Starship have two properties 
+});
+if we use partial we won't get any error 
+const updateStarship = id: number, starship: Partial<Starship>) => {}; 
+updateStarship (1, {
+name: 'Explorer' // no error as partial made all property optional
+});
+##Required<T> // makes optional to required 
+interface A
+x?: number
+y?: number
+}
+Required<A> = {
+x: number
+y: number
+}
+##Readonly<T>
+this make all the properties readonly which means we can alter or overwrite them
+interface A {
+x: number
+y: number
+}
+Readonly<A> = {
+readonly x: number
+readonly x: number
+}
+##Pick<T,k>// it only keep type of properties mention in pick<interface,"key1"|"key2">
+interface A {
+x: number
+y: number
+z: number
+}
+Pick<A, "x" | "z"> = {
+x: number
+z: number
+} 
+## Omit<T, K>
+interface A {
+x: number
+y: number
+z: number
+}
+Omit<A, "x" | "z"> = {
+y: number
+}
+##exclude type 
+Exclude<T, U>
+type A = string | string[] | undefined 
+Exclude<A, undefined> = string | string[]// A:string|string[]
+type AvailableDrinks = 'Coffee' | 'Tea' | 'Orange Juice' | 'Lemonade';
+let JohnsDrink: AvailableDrinks;
+JohnsDrink = 'Coffee';
+type Drinks JaneDoesntLike = 'Coffee' | 'Orange Juice';
+let JanesDrink: Exclude<AvailableDrinks, Drinks Jane Doesnt Like>;
+JanesDrink = "Tea "
+## NonNullable
+interface StarshipProperties {
+color?: 'blue' | 'red' | 'green';
+}
+function paintStarship(
+id: number,
+color: NonNullable<StarshipProperties ['color']>
+) {}
+var undefined
+paintStarship(1, undefined);// error can't assign null
+##ReturnType<Type>
+type T0 = ReturnType<() => string>;// this function here returns string
+     
+type T0 = string
+// @errors: 2344 2344
+declare function f1(): { a: number; b: string };
+
+type T0 = ReturnType<() => string>;
+//    ^?
+type T1 = ReturnType<(s: string) => void>;
+//    ^?
+type T2 = ReturnType<<T>() => T>;
+//    ^?
+type T3 = ReturnType<<T extends U, U extends number[]>() => T>;
+//    ^?
+type T4 = ReturnType<typeof f1>;
+//    ^?
+type T5 = ReturnType<any>;
+//    ^?
+type T6 = ReturnType<never>;
+//    ^?
+type T7 = ReturnType<string>;
+//    ^?
+type T8 = ReturnType<Function>;
+//    ^?
+--------------------Utility type ends-----------------
+
 ------------ques--------------------------
 how to do validatiopn by type in typescript 
 
