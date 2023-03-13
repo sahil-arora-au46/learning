@@ -56,4 +56,80 @@ interface MyFn<Type1, Type2> {
     
     }
     return res
+<<<<<<< HEAD
     }
+=======
+    }
+
+    // generic classes 
+    class GenericNumber<NumType> {
+      zeroValue: NumType;
+      add: (x: NumType, y: NumType) => NumType;
+    }
+    let stringNumeric = new GenericNumber<string>();
+stringNumeric.zeroValue = "";
+stringNumeric.add = function (x, y) {
+  return x + y;
+};
+ 
+console.log(stringNumeric.add(stringNumeric.zeroValue, "test"));
+
+// generic linkedlist class 
+interface Node<T> {
+  data: T;
+  next: Node<T> | null;
+}
+
+class LinkedList<T> {
+  private head: Node<T> | null;
+
+  constructor() {
+    this.head = null;
+  }
+
+  add(data: T): void {
+    const newNode = { data, next: null };
+    if (!this.head) {
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+  }
+
+  remove(data: T): void {
+    if (!this.head) {
+      return;
+    }
+    if (this.head.data === data) {
+      this.head = this.head.next;
+      return;
+    }
+    let current = this.head;
+    while (current.next) {
+      if (current.next.data === data) {
+        current.next = current.next.next;
+        return;
+      }
+      current = current.next;
+    }
+  }
+
+  isEmpty(): boolean {
+    return this.head === null;
+  }
+
+  size(): number {
+    let count = 0;
+    let current = this.head;
+    while (current) {
+      count++;
+      current = current.next;
+    }
+    return count;
+  }
+}
+>>>>>>> generic done
