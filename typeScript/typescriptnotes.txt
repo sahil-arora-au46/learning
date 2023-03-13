@@ -578,7 +578,23 @@ function compute<T>(a:T,b:T):T{
 function swap<T, U>(a: T, b: U): [U, T] {
   return [b, a];
 }
----------------type manipulation---------------------------------
+## geneic interface
+interface GenericIdentityFn {
+  <Type>(arg: Type): Type;
+}
+
+function identity<Type>(arg: Type): Type {
+  return arg;
+}
+ 
+let myIdentity: GenericIdentityFn = identity;
+here we have to define the function 
+let result = myIdentity<string>("Hello world");
+console.log(result); // Output: "Hello world"
+let result = myIdentity<number>(42);
+console.log(result); // Output: 42
+
+---------------type manipulation end---------------------------------
 ------------ques--------------------------
 how to do validatiopn by type in typescript 
 
@@ -599,3 +615,13 @@ function getUsers(repository: Repository): User[] {
 }
  this User[] means array of userobj which only can 
 have object of type user
+
+
+------------------keywords to know-----------------------
+##implements
+In TypeScript, the implements keyword is used to 
+indicate that a class or object implements a 
+particular interface. When a class implements an 
+interface, it agrees to provide an implementation
+ for all of the methods and properties defined in 
+ the interface.

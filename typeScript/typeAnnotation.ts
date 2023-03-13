@@ -32,7 +32,7 @@ data = ["str1","str2","str3"]
 data = [true,false]
 // here there is no error as it of any type
 // for more read notes
-// function parameters annotation 
+// function parameters type annotation 
 function greet(person: string, date: Date){
     console.log(`Hello ${person}, today is ${date.toDateString()}!`);
   }
