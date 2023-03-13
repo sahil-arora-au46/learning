@@ -263,7 +263,7 @@ for all scenarios, especially when you need to add or
  you need to enforce a specific type and number of 
  elements in an array.
 
-tuple proble of .push solved 
+tuple problem of .push solved 
 let myTuple: readonly [number,string];
 let obj= {
   num: 889,
@@ -671,6 +671,30 @@ Conditional types take a form that looks a little like conditional expressions (
 
 ---------------type manipulation end---------------------------------
 ---------------------Utility type start-----------------
+## Awaited<Type>
+this assign the type of awaited data from a promise to a variable 
+let display: Element= document.querySelector("#display")!;
+type jokeData = {
+    categories: string[];
+    created_at: string;
+    icon_url: string;
+    id: string;
+    updated_at: string;
+    url: string;
+    value: string;
+}
+async function getJoke():Promise<jokeData> {
+const response = await fetch("https://api.chucknorris.io/jokes/random")
+const data =  await response.json()
+return data
+}
+type joke = Awaited<ReturnType<typeof getJoke>> //{w:string}
+(async () =>{
+    let data:joke = await getJoke()
+    console.log(data)
+})()
+
+
 ## partial<T>
 here T is interface 
 by partial we can make propertes optional
