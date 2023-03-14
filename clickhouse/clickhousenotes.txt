@@ -1,0 +1,24 @@
+Row-Oriented Database
+Tables are stored as rows in disk
+A single block io read to the table fetches multiple rows
+with all their columns.
+More IOs are required to find a particular row in a table
+scan but once you find the row you get all columns for that
+row.
+Column_Oriented Database
+Tables are sorted as columns first in disk
+a single block io read to the table fetches multiple columns with all matching rows
+less IOs are required to get more values of a given column.but working with multiple column require moe Ios.
+PRO & COns
+Row-Based
+Optimal  for read/write
+good for OLTP
+Compression isn;t efficient
+Aggregation isn't efficientEfficient queries
+W/multi-columns
+Column-Based 
+Writes are slower
+OLAP
+Compress greatly
+Amazing for aggregation 
+Innefficient queries W/multi-columns
