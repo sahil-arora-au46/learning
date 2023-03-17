@@ -22,3 +22,30 @@ OLAP
 Compress greatly
 Amazing for aggregation 
 Innefficient queries W/multi-columns
+------------------------------to run clickhouse----------------
+sudo clickhouse start
+---------------------------------------------
+------------------Engine--start-----------------
+ the ENGINE clause is used when creating a table to specify the storage engine that will be used to store and manage the table's data. The storage engine is responsible for determining how the data is organized and accessed, as well as how it is compressed and optimized for performance.
+
+The ENGINE clause is followed by the name of the storage engine that will be used. ClickHouse supports a variety of storage engines, including:
+
+MergeTree: a column-oriented storage engine optimized for OLAP workloads that involve large amounts of data and complex queries.
+Memory: a storage engine that stores all data in memory and is optimized for fast read and write performance, but is not suitable for large datasets or long-term storage.
+TinyLog: a simple log-based storage engine that is suitable for small datasets or for testing and experimentation.
+Log: a more complex log-based storage engine that supports multiple replicas and is optimized for high availability and fault tolerance.
+Other storage engines are also available, such as ReplacingMergeTree, Distributed, MaterializedView, and more. Each engine has its own set of properties and configuration options that can be specified when creating the table.
+eg.
+CREATE TABLE my_table (
+  id UInt32,
+  name String,
+  date Date
+) ENGINE = MergeTree(date, (id, date), 8192)
+In this example, the table my_table has three columns (id, name, and date) and is using the MergeTree engine with the date column specified as the primary key and the (id, date) columns specified as the sorting key. The final parameter 8192 is the block size in bytes used by the engine.
+
+"key point we can change the size of granules by using setting clause  " which can can help 
+to optimize the query as per need a eaxmple for this given below
+
+SELECT column, sum(value) FROM my_table GROUP BY column  //with default size (8192 kilobyte(kb))  here granule have 8192 column
+SELECT column, sum(value) FROM my_table SETTINGS merge_tree_minimal_block_size=67108864, merge_tree_max_block_size=67108864 GROUP BY column
+// with size of 64mb here the granule 67108864 column 
