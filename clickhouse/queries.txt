@@ -1,0 +1,7 @@
+show databases // list of databases
+create database dbname // creates new db 
+create table table_name(
+    key_name data_type,
+    key1_name,data_type,
+    PRIMARY KEY(key_name,key_name1) // u can set multiple primary keys 
+) ENGINE = Engine_type  // for OLAP(Online analytical processing) here are moe engines for diff use check notes 

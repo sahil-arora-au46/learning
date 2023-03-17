@@ -1,1 +1,3 @@
 clickhouse: offical videos https://www.youtube.com/watch?v=vBjCJtw_Ei0
+for create query :-https://clickhouse.com/docs/en/sql-reference/statements/create
+inserting data from url :- https://clickhouse.com/docs/en/engines/table-engines/special/url
