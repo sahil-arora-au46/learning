@@ -1,0 +1,18 @@
+###Project Scaffolding (Vue CLI):-
+A project scaffold refers to a basic framework or 
+structure that provides a starting point for building 
+a project. It typically includes the initial files, 
+directories, and code necessary to begin a project, 
+and may also include some basic functionality and 
+configurations.
+
+Project scaffolding can be useful for developers who 
+want to save time and reduce the initial setup
+ required for a new project. By using a scaffold,
+  developers can avoid the repetitive tasks of 
+  creating directories, setting up configuration 
+  files, and other initial setup steps. Instead, 
+  they can focus on the unique aspects of the project 
+  and get started on developing the core 
+  functionality.
+###IDE Support
