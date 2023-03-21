@@ -1,0 +1,8 @@
+in vuejs 
+main.js s first  file that will run 
+then app.js 
+we use component in app.vue 
+component 
+first step import 
+then register
+then define in templete tag
