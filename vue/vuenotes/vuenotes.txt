@@ -22,12 +22,21 @@ want to save time and reduce the initial setup
 ###IDE Support
 for vue best IDE is vs-code for vue there uer vo 
 
+---------template-syntax----------------------------
+emplate syntax can be thought of as a set of instructions or rules 
+that define a structure for generating content 
+dynamically. These instructions can include variables, 
+conditionals, loops, and filters, which provide a 
+flexible way to define a structure that can be used to
+generate content based on data from a variety of 
+sources.
+---------template-syntan-ends---------------------------
 
 
-
----------------*.vue-files------------------
+---------------*.vue-files aka single-file-component(SFC)------------------
 A *.vue file is a custom file format the uses HTML-like describe a portion of the UI 
 Each .vue file consists of three types of top-level language blocks
 1. <template>The template block is like the HTML of your UI <tenplate/>
 2.<script> The script block is where the logic and functionality of your app can be maintained<script/>
 3.<style>The CSS block is where you specify the styles related to tha mark up in the template block  <style/>
+----------------SFC-ends-----------------------------------

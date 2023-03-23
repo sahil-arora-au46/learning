@@ -1,26 +1,34 @@
 <template>
-<table>
-  <tr>
-    <th v-for="name in names" v-bind:key="name"></th>
-  </tr>
-  <tr v-for="name in names" v-bind:key="name">
-    <td v-for="name in names" v-bind:key="name" v-text="name"></td>
-  </tr>
-</table>
+<div :id="wrap" @mousemove ="coordinate" ><h2 >{{ name }}</h2></div>
+
 </template>
 
 <script>
+
+
 
 
 export default {
   name: 'App',
   data() {
     return{
-     names:['a','b','c','d']
-     
+     name :"sahil"
+
+    }
+  },
+  methods: {
+    coordinate(event){
+      let coord = `X- coord -${event.pageX},Y-coordinat ${event.pageY}`
+      this.name = coord
+      
     }
   }
 }
 </script>
-
+<style>
+div{
+  background-color: #807575;
+  height: 700px;
+}
+</style>
 

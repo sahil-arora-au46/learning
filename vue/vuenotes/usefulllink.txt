@@ -1,0 +1,2 @@
+vue cli :- https://cli.vuejs.org/guide/plugins-and-presets.html
+check content and then decide this url is usefull or not :- https://www.tutorialsplane.com/vuejs-create-dynamic-table-component/

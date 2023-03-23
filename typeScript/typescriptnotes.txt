@@ -802,7 +802,27 @@ type T6 = ReturnType<never>;
 type T7 = ReturnType<string>;
 //    ^?
 type T8 = ReturnType<Function>;
-//    ^?
+
+##Record<Keys, Type>
+Constructs an object type whose property keys are Keys and whose property values are Type. This utility can be used to map the properties of a type to another type.
+interface CatInfo {
+  age: number;
+  breed: string;
+}
+ 
+type CatName = "miffy" | "boris" | "mordred";
+ 
+const cats: Record<CatName, CatInfo> = {
+  miffy: { age: 10, breed: "Persian" },
+  boris: { age: 5, breed: "Maine Coon" },
+  mordred: { age: 16, breed: "British Shorthair" },
+};
+ 
+cats.boris;
+ 
+const cats: Record<CatName, CatInfo>
+it make type in which key can have name on present in catname, values can have only type that
+present in catinfo
 --------------------Utility type ends-----------------
 
 ------------ques--------------------------
@@ -915,4 +935,42 @@ This means that JavaScript runtime constructs
   This makes private-declared fields potentially 
   easier to access for things like unit tests,
    with the drawback that these fields are soft 
-   private and don’t strictly enforce privacy.
+   private and don’t strictly enforce privacy. 
+   -----------que----------------
+   difference between & and extends 
+   '&' is used to create a new type that combines the 
+   properties and methods of two or more types, while 
+   'extends' is used to create a new subtype of an 
+   existing type that inherits its properties and 
+   methods and adds new ones.
+   on simple words 
+   '&' is used to create a new type by combining the properties and methods of two or more existing types into a single type. For example, if you have two types A and B, you can combine them using '&' to create a new type C that has all the properties and methods of both A and B.
+
+On the other hand, 'extends' is used to create a new type that is based on an existing type, but with additional properties and methods. For example, if you have a type A, you can create a new subtype B that extends A, and B will have all the properties and methods of A, as well as any additional properties and methods that you define in B.
+
+So, to put it simply, '&' is used to merge two or more types into a single type, while 'extends' is used to create a new type based on an existing type, but with additional properties and methods.
+
+-------------------defining key type of a object with union--------
+type UnionRecord = {
+  [key: string]: string | number | boolean;
+};
+
+const unionRecord: UnionRecord = {
+  name: "John Doe",
+  age: 30,
+  isMale: true,
+  address: "123 Main St"
+};
+type ArrayRecord = {
+  [key: string]: number[] | string[];
+};
+
+const arrayRecord: ArrayRecord = {
+  numbers: [1, 2, 3],
+  strings: ["foo", "bar", "baz"]
+};
+type dataObj = {
+  [key:string] : {}|string|number|boolean|(string|number)[]|dataObj|""|null
+}
+
+type JSONdata = dataObj[]
