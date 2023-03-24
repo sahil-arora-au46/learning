@@ -2,6 +2,7 @@
 
 // import { reactive } from 'vue';
 import RefTest from "./components/RefTest.vue"
+import ReactiveTest from "./components/ReactiveTest.vue"
 // const num = reactive({count:0})
 // setInterval(()=> num.count++,1000                                                                                                                                                                                                                                                     )
 </script>
@@ -9,6 +10,9 @@ import RefTest from "./components/RefTest.vue"
     <div>
 
         <RefTest />
+        <button v-bind:disabled="''" v-if="'s'">Button</button>
+        <ReactiveTest />
+        
     </div>
 <!-- <hi>{{ num.count }}</hi> -->
 </template>

@@ -23,20 +23,249 @@ want to save time and reduce the initial setup
 for vue best IDE is vs-code for vue there uer vo 
 
 ---------template-syntax----------------------------
-emplate syntax can be thought of as a set of instructions or rules 
+template syntax can be thought of as a set of instructions or rules 
 that define a structure for generating content 
 dynamically. These instructions can include variables, 
 conditionals, loops, and filters, which provide a 
 flexible way to define a structure that can be used to
 generate content based on data from a variety of 
 sources.
----------template-syntan-ends---------------------------
-
-
+---------template-syntan-ends--------------------------
 ---------------*.vue-files aka single-file-component(SFC)------------------
 A *.vue file is a custom file format the uses HTML-like describe a portion of the UI 
 Each .vue file consists of three types of top-level language blocks
 1. <template>The template block is like the HTML of your UI <tenplate/>
 2.<script> The script block is where the logic and functionality of your app can be maintained<script/>
 3.<style>The CSS block is where you specify the styles related to tha mark up in the template block  <style/>
-----------------SFC-ends-----------------------------------
+----------------SFC-ends-------------------------------
+-------------------text interpolation------------------
+Text interpolation is a technique used in programming and computer science to insert values or variables into a string of text or a template. This is often used to dynamically generate text or output based on user input or other factors.
+Text interpolation in Vue is similar to text interpolation in other programming languages. Vue provides a template syntax that allows you to interpolate data bindings directly into your HTML templates.
+in Vue, you can use the {{ }} syntax to enclose the expression or variable you want to interpolate. For example
+<script setup>
+let name = "userName"
+<script/>
+<template>
+<h1>{{name}}<h1/>// displays the user name or <h1>userName<h1/>
+<template/>
+we can use it to solve simple expression for e.g.
+<template>
+<h1>{{2+2}}<h1/>// displays the result or <h1>4<h1/>
+<template/>
+use simple expression like arthimatics and function calls.If you need to perform more complex operations or calculations in your Vue template, you can use computed properties or methods instead.As text interpolation expressions are executed within the context of the Vue template rendering system, which is optimized for performance and simplicity. Executing complex expressions or functions within this context can lead to performance issues and make your templates harder to understand and maintain.
+we can use :-
+{{ number + 1 }}
+
+{{ ok ? 'YES' : 'NO' }}
+
+{{ message.split('').reverse().join('') }}
+
+<div :id="`list-${id}`"></div>
+<span :title="toTitleDate(date)">
+  {{ formatDate(date) }}// calling func
+</span>
+can't :-
+<!-- this is a statement, not an expression: -->
+{{ var a = 1 }}
+
+<!-- flow control won't work either, use ternary expressions -->
+{{ if (ok) { return message } }}
+
+---------directive--starts--------------------
+what is directive
+Directives are special attributes with the v- prefix.
+that provides additional unctionality to HTML elements
+directives are used to bind data to an element, manipulate the DOM, or listen to events.
+
+v-bind:- v-bind is a directive that is used to bind an HTML element's attribute to a Vue data property. The v-bind directive is often abbreviated as : for brevity
+
+v-bind:attribute="jsexpression "
+v-bind:attribute = "{attribute1:value1,
+attribute2,value2}/[attribute1:value1,
+attribute2,value2},attribute1:value1,
+attribute2,value2}]/string/number"
+const objectOfAttrs = {
+  id: 'container',
+  class: 'wrapper'
+}
+<div v-bind="objectOfAttrs"></div>
+<div> v-bind="{  id: 'container',
+  class: 'wrapper'}"
+<button :id="submit"><button/>
+##v-on directive 
+v-on is a directive that is used to attach event listeners to HTML elements. The v-on directive is often abbreviated as @ for brevity(shorthand).
+<element v-on:event="methodName"></element>
+using shorthand
+<element @event="methodName"></element>
+Here, event is the name of the DOM event that you want to listen for, such as click, input, keydown, submit, and so on. methodName is the name of the Vue method that you want to call when the event is triggered.
+
+##static args in derectives
+<a v-bind:href="url"> ... </a>
+
+<!-- shorthand -->
+<a :href="url"> ... </a>
+<a v-on:click="doSomething"> ... </a>
+
+<!-- shorthand -->
+<a @click="doSomething"> ... </a>
+###using dynamic attribute for directives which takes args
+<!--
+Note that there are some constraints to the argument expression,
+as explained in the "Dynamic Argument Value Constraints" and "Dynamic Argument Syntax Constraints" 
+-->
+<a v-bind:[attributeName]="url"> ... </a>
+
+<!-- shorthand -->
+<a :[attributeName]="url"> ... </a>
+if your component instance has a data property, attributeName, whose value is "href", then this binding will be equivalent to v-bind:href.
+<a v-on:[eventName]="doSomething"> ... </a>
+
+<!-- shorthand -->
+<a @[eventName]="doSomething">
+In this example, when eventName's value is "focus", v-on:[eventName] will be equivalent to v-on:focus.
+###Dynamic Argument Value Constraints
+the value of the argument is expected to evaluate to a string, except for the special value null. If the value is not a string or null,  if we were to pass a non-string or non-null value as the argument to v-bind, such as a number or an object, Vue would issue a warning.
+<button v-bind:disabled="{ isEnabled }">Click me</button>// warning
+###Dynamic Argument Syntax Constraints
+HTML attribute names cannot contain certain characters, such as spaces and quotes. Therefore, if you try to use an expression that contains these characters as a dynamic argument, it will be invalid.
+
+<button v-bind:my attribute="value">Click me</button>// invalid as there is a space b/w
+<button v-bind:"'my attribute'='value'">Click me</button>// valid used ''(quotes) as a key can't have space to fix it in js we use quote like in objects we do the statement
+important to be aware that browsers  automatically converts attribute names to lowercase.. This means that if you use uppercase letters in your attribute names, the browser will automatically convert them to lowercase, which can cause unexpected behavior or errors in your Vue component.
+note :-To avoid these issues, it's recommended to use attribute names that are consistently lowercase when working with in-DOM templates in Vue. 
+For example, if you have an attribute called "MyAttribute" in your Vue component, you should write it as "myattribute" in your in-DOM template.
+
+
+------------------------Modifires----------------------
+Modifiers are special postfixes denoted by a dot, which indicate that a directive should be bound in some special way. For example, the .prevent modifier tells the v-on directive to call event.preventDefault() on the triggered event:
+<form @submit.prevent="onSubmit">...</form>
+---------------------Modifires-ends--------------------
+----------------------reactivity fundamentals--------------
+what is reactive state 
+A reactive state refers to a piece of data that is tracked and updated automatically by Vue.js. When a state is marked as reactive, it means that Vue.js will detect any changes made to the state and automatically update any views(means components in UI) that depend on it.
+Reactive states are created using the reactive() function from the Vue.js When you create a reactive state using reactive(), Vue.js wraps the state in a JavaScript Proxy object. 
+
+example:-
+old way to write code as composition api
+import { reactive } from 'vue'
+
+export default {
+  setup() {
+    const state = reactive({ count: 0 })
+
+    function increment() {
+      state.count++
+    }
+
+    // don't forget to expose the function as well.
+    return {
+      state,
+      increment
+    }
+  }
+}
+<template>
+</template>
+new way to write code as composition api
+<script setup>
+import { reactive } from 'vue'
+
+const state = reactive({ count: 0 })
+
+function increment() {
+  state.count++
+}
+</script>
+
+<template>
+  <button @click="increment">
+    {{ state.count }}
+  </button>
+</template>
+###DOM Update Timing
+When you mutate reactive state, the DOM is updated automatically. However, it should be noted that the DOM updates are not applied synchronously. Instead, Vue buffers them until the "next tick" in the update cycle to ensure that each component updates only once no matter how many state changes you have made.
+this mean if something is updated in dom we only can get the last state of dome
+###Deep Reactivity
+In Vue, state is deeply reactive by default. This means you can expect changes to be detected even when you mutate nested objects or arrays:
+this simply means you can make nested objects that follows reactive state
+import { reactive } from 'vue'
+
+const obj = reactive({
+  nested: { count: 0 },
+  arr: ['foo', 'bar']
+})
+
+function mutateDeeply() {
+  // these will work as expected.
+  obj.nested.count++
+  obj.arr.push('baz')
+}
+###Reactive Proxy vs. Original
+proxy object can't be equal to the original as it gets a different memory allocation 
+const raw = {}
+const proxy = reactive(raw)
+
+// proxy is NOT equal to the original.
+console.log(proxy === raw) // false
+if you use reactive again on proxy it will point to same proxy in memory 
+// calling reactive() on the same object returns the same proxy
+console.log(reactive(raw) === proxy) // true
+
+// calling reactive() on a proxy returns itself
+console.log(reactive(proxy) === proxy) // true
+
+
+----------limitation-of-reactive---------------
+1.The reactive() API has two limitations:
+It only works for object types (objects, arrays, and collection types such as Map and Set). It cannot hold primitive types such as string, number or boolean.
+2.
+we must always keep the same reference to the reactive object. This means we can't easily "replace" a reactive object because the reactivity connection to the first reference is lost:E.g:-
+let state = reactive({ count: 0 })
+
+// the above reference ({ count: 0 }) is no longer being tracked (reactivity connection is lost!)
+state = reactive({ count: 1 })
+It also means that when we assign or destructure a reactive object's property into local variables, or when we pass that property into a function, we will lose the reactivity connection:
+const state = reactive({ count: 0 })
+
+// n is a local variable that is disconnected
+// from state.count.
+let n = state.count
+// does not affect original state
+n++
+
+// count is also disconnected from state.count.
+let { count } = state
+// does not affect original state
+count++
+
+// the function receives a plain number and
+// won't be able to track changes to state.count
+callSomeFunction(state.count)
+
+-----------ref()-----------------------
+vue provide ref() To address the limitations of reactive()
+A ref containing an object value can reactively replace the entire object:
+const objectRef = ref({ count: 0 })
+
+// this works reactively
+objectRef.value = { count: 1 }
+it means it still have the same memory allocation
+Refs can also be passed into functions or destructured from plain objects without losing reactivity:
+const obj = {
+  foo: ref(1),
+  bar: ref(2)
+}
+
+// the function receives a ref
+// it needs to access the value via .value but it
+// will retain the reactivity connection
+callSomeFunction(obj.foo)
+
+// still reactive
+const { foo, bar } = obj
+
+ref() allows us to create a "reference" to any value and pass it around without losing reactivity.
+------------reactivity ends------------
+
+
+
