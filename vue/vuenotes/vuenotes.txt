@@ -1,7 +1,7 @@
 what is vue?
-
-
-
+vue is javascript framework for building user interface.It builds on top of standard HTML, CSS, and JavaScript which means it covert the final code in html,javascript and cssit helps developers what they want their code to do, rather than writing step-by-step instructions for how to do it. in vue  developers describe the outcome they desire, and the framework takes care of the details
+why SFC 
+Pre-compiled templates without runtime compilation cost
 ###Project Scaffolding (Vue CLI):-
 A project scaffold refers to a basic framework or 
 structure that provides a starting point for building 
