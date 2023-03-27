@@ -13,9 +13,12 @@ const state = reactive({ count: 0 })
 
 </script>
 <template>
-    <button @click="increment">
+<div>
+  <button @click="increment" class="scoped">
   {{ state.count }}
 </button>
+<h1>not rooot element</h1>
+</div>
 </template>
 
 <style scoped>

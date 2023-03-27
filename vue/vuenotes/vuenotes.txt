@@ -266,6 +266,37 @@ const { foo, bar } = obj
 
 ref() allows us to create a "reference" to any value and pass it around without losing reactivity.
 ------------reactivity ends------------
+---------------------css--------------------------
+##global
+syntax 
+<style>
+</style>
+we can use classes in other components if it global
+but it must be in root component,like if we declare
+<style> tag in a component and not inport it to root(App) then it won't work 
+note:- if ou want to use css if other component import it to App(root)
+if assign any style to child component it will be assinged to the root component 
+<template>
+<div> // root component 
+//more tags
+</div>
+</template>
+##not root
+<template>
+<div>
+</div>
+<div>
+</div>
+</template>
+##Scoped
+scoped css work only for the component where it is being declared and for the child components of it 
+for child component it works same as above like it will only work on root component
+## we can declare both scoped and global in a single componet
+ ## Modules
+ 
+-----------------css ends---------------------
+-------------------v-for-------------------------
 
+--------------v-for-ends-------------------------
 
 
