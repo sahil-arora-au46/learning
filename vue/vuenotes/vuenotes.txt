@@ -267,6 +267,7 @@ const { foo, bar } = obj
 ref() allows us to create a "reference" to any value and pass it around without losing reactivity.
 ------------reactivity ends------------
 <<<<<<< HEAD
+<<<<<<< HEAD
 ---------------------css--------------------------
 ##global
 syntax 
@@ -300,6 +301,8 @@ for child component it works same as above like it will only work on root compon
 
 --------------v-for-ends-------------------------
 =======
+=======
+>>>>>>> 7a15f592f20d2c1025e62c01fe172c13b6b27a9b
 -----------------------methods---------------
 // Without Ref
 let firstname "Sonam"
@@ -363,6 +366,7 @@ compute{
   });
 
   const computedValue = computed(() => input.value.name.length);
+<<<<<<< HEAD
 
 >>>>>>> 7a15f592f20d2c1025e62c01fe172c13b6b27a9b
 
@@ -389,10 +393,40 @@ compute{
 
   const computedValue = computed(() => input.name.length);
   won't update the value of lentg 
+=======
+>>>>>>> 7a15f592f20d2c1025e62c01fe172c13b6b27a9b
 
 
 
 </script>
+<<<<<<< HEAD
+=======
+## without ref()
+<template>
+    <div>
+      <input v-bind:maxlength="20" type="text" v-model="input.name" />
+      <textarea v-model="input.des" maxlength="5"></textarea>
+      <p>{{ computedValue}}/20</p>//always remain 0/20
+      <p>{{ computedValue }}</p>
+      <h1>{{ input }}</h1>
+    </div>
+</template>
+  
+<script setup>
+  import { computed } from 'vue'
+  
+  const input = {
+    name : "",
+    des : ""
+  };
+
+  const computedValue = computed(() => input.name.length);
+  won't update the value of lentg 
+
+
+
+</script>
+>>>>>>> 7a15f592f20d2c1025e62c01fe172c13b6b27a9b
 ### difference between computed and methods
 Caching: Computed properties are cached based on their dependencies. This means that if a computed property's dependencies have not changed, Vue will return the previously computed value without re-evaluating the property's function. In contrast, methods are not cached and will always be re-evaluated when they are called.
 suppose in template tag you are using fullName again and again .example
