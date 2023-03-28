@@ -4,4 +4,7 @@ create table table_name(
     key_name data_type,
     key1_name,data_type,
     PRIMARY KEY(key_name,key_name1) // u can set multiple primary keys 
-) ENGINE = Engine_type  // for OLAP(Online analytical processing) here are moe engines for diff use check notes 
+) ENGINE = Engine_type  // for OLAP(Online analytical processing) there are more engines for diff use check notes 
+CREATE TABLE db_name.table_name (
+   …
+)// if you are not in working database
