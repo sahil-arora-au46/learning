@@ -38,6 +38,36 @@ Each .vue file consists of three types of top-level language blocks
 2.<script> The script block is where the logic and functionality of your app can be maintained<script/>
 3.<style>The CSS block is where you specify the styles related to tha mark up in the template block  <style/>
 ----------------SFC-ends-------------------------------
+------------component----------------------------
+##basic counter component
+//ButtonCounter.vue
+<script setup>
+import { ref } from 'vue'
+
+const count = ref(0)
+</script>
+
+<template>
+  <button @click="count++">
+    You clicked me {{ count }} times.
+  </button>
+</template>
+/// App.vue
+<script setup>
+import ButtonCounter from './ButtonCounter.vue'
+</script>
+
+<template>
+	<h1>Here are many child components!</h1>
+	<ButtonCounter />
+	<ButtonCounter />
+	<ButtonCounter />
+</template>
+
+ each one maintains its own, separate count. That's because each time you use a component, a new instance of it is created.
+ 
+
+--------------component-ends---------------------
 -------------------text interpolation------------------
 Text interpolation is a technique used in programming and computer science to insert values or variables into a string of text or a template. This is often used to dynamically generate text or output based on user input or other factors.
 Text interpolation in Vue is similar to text interpolation in other programming languages. Vue provides a template syntax that allows you to interpolate data bindings directly into your HTML templates.
@@ -523,5 +553,102 @@ template
 ##########NOTE:-
 
 -------------class attribute end---------
+--------slot-----------------------------------------
+ slots are a way to pass content from a parent component to a child component. They allow the parent component to define a placeholder for content that can be filled by the child component.You can then pass any data to the slot, such as text, numbers, arrays, objects, or even components.
+ ## child SlotComponent
+ <template>
+<h1>hi</h1>
+<h2>from</h2>
+<slot></slot>//The <slot> element is a slot outlet that indicates where the parent-provided slot content should be rendered.
+</template>
+##parent App.vue
+<template>
+<SlotComponent>
+<h3> slot</h3>// this will pass the to child as <h3> slot</h3>
+</SlotComponent>
+</template>
+<script setup>
+import SlotComponent from "./components/SlotComponent.vue"
+### passing other component 
+<SlotComponent>
+<h3> slot</h3>// this will pass the to child as <h3> slot</h3>
+</SlotComponent>
+<NewComponent /> // 
+</script>
+
+
+##scope 
+Expressions in the parent template only have access to the parent scope; expressions in the child template only have access to the child scope.
+same as JavaScript's lexical scoping
+Slot content has access to the data scope of the parent component, because it is defined in the parent.
+means we can access data from parent but can't use data from child component 
+e.g:-
+// child SlotComponent 
+<template>
+
+<h1>hi</h1>
+<h2>from</h2>
+<slot>{{ name}}</slot> // can't do this as it is not in scope of slot
+</template>
+<script setup>
+let name = "childData"
+</script>
+##named slots
+There are times when it's useful to have multiple slot outlets in a single component.
+this concept allow to give multiple slot in a single component
+//child SlotComponent<template>
+
+<h1>hi</h1>
+<h2>from</h2>
+<slot  name="header">
+<h3>Default value</h3>
+</slot>
+<slot>
+    <h1>default value1</h1>
+</slot>
+<slot>
+    <h1>default value2</h1>
+</slot>
+<slot name="footer"></slot>
+</template>
+//parent app.vue
+<template>
+<SlotComponent>
+<template v-slot:header>
+<h1>hi from header</h1>
+</template>
+<h1>hi from slot with name and default name </h1> 
+<h2>testing implicite slot</h2><!--this is taking the given data implicitly-->
+<template #footer>     <!--short way to write v-slot-->
+<h1>hi from footer</h1>
+</template>
+
+</SlotComponent>
+</template>
+<script setup>
+import SlotComponent from "./components/SlotComponent.vue"
+
+</script>
+
+when we give slot with name and pass some data to it 
+it implicitly  pass it to all the slots in child component in above example we have to slot without name to see run slot in vue folder
+
+### working in javascript of slot named
+// passing multiple slot fragments with different names
+BaseLayout({
+  header: `...`,
+  default: `...`,
+  footer: `...`
+})
+
+// <BaseLayout> renders them in different places
+function BaseLayout(slots) {
+  return `<div class="container">
+      <header>${slots.header}</header>
+      <main>${slots.default}</main>
+      <footer>${slots.footer}</footer>
+    </div>`
+}
+---------slots---ends-----------------------------
 
 

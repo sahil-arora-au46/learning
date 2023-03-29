@@ -36,7 +36,8 @@ let profile = (name) => {
   console.log(name)
   emit("login",{name})
   console.log("yaha se")
-  if (name === "a"|"b"|"c") {
+  if (name === "a"|"b"|"c"
+  ) {
     loginedFlag.value = true
     onLogin.value=false;
     userName = name
