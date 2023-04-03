@@ -649,6 +649,201 @@ function BaseLayout(slots) {
       <footer>${slots.footer}</footer>
     </div>`
 }
+## scoped slots
 ---------slots---ends-----------------------------
 
+-----------------lifecyclehooks---------------------------
+Lifecycle hooks in Vue are used to register callback functions that get called at specific points in thelifecycle of a Vue component.
+lifecycle hooks can't be used asynchronously This means that the lifecycle hooks should be defined and registered at the same time that the component is being created.
+##onMounted
+the onMounted hook is used to register a callback function that will be executed after the component has been mounted.(after rendered)
+Vue.js is a popular JavaScript framework that allows developers to build reactive and dynamic web applications. One of its most powerful features is its lifecycle hooks. Lifecycle hooks are functions that get called at specific stages of a component's lifecycle, allowing developers to perform actions and manipulate data at those points.
 
+There are eight lifecycle hooks in Vue.js, divided into four categories: creation, mounting, updating, and destruction. In this article, we will explain each hook and provide examples to illustrate their usage.
+
+Creation Hooks
+Creation hooks are called when a component is first created. They are useful for initializing data, setting up watchers, and other setup tasks.
+
+beforeCreate
+The beforeCreate hook is called before the component is created. At this point, the component's data and events have not been initialized, and the template has not been compiled. This hook is useful for setting up any data or services that the component needs before it is created.
+
+Example:
+
+export default {
+  beforeCreate() {
+    console.log('Component is about to be created');
+  }
+}
+created
+The created hook is called after the component is created. At this point, the component's data and events have been initialized, but the template has not been mounted to the DOM. This hook is useful for performing any initial setup tasks that require access to the component's data.
+
+Example:
+
+export default {
+  created() {
+    console.log('Component has been created');
+  }
+}
+
+Mounting Hooks
+Mounting hooks are called when a component is mounted to the DOM. They are useful for performing tasks that require access to the DOM, such as setting up event listeners or fetching data from an API.
+
+beforeMount
+The beforeMount hook is called before the component is mounted to the DOM. At this point, the component's template has been compiled, but it has not yet been added to the DOM. This hook is useful for performing any setup tasks that require access to the component's template.
+
+Example:
+
+export default {
+  beforeMount() {
+    console.log('Component is about to be mounted');
+  }
+}
+mounted
+The mounted hook is called after the component is mounted to the DOM. At this point, the component's template has been added to the DOM, and it is now visible to the user. This hook is useful for performing any tasks that require access to the DOM, such as setting up event listeners or fetching data from an API.
+
+Example:
+
+export default {
+  mounted() {
+    console.log('Component has been mounted');
+  }
+}
+Updating Hooks
+Updating hooks are called when a component's data changes. They are useful for performing tasks that need to be updated whenever the component's data changes.
+
+beforeUpdate
+The beforeUpdate hook is called before a component's data changes. At this point, the component's data has been updated, but the DOM has not yet been re-rendered. This hook is useful for performing any tasks that need to be updated before the DOM is re-rendered.
+
+Example:
+
+export default {
+  beforeUpdate() {
+    console.log('Component is about to be updated');
+  }
+}
+updated
+The updated hook is called after a component's data changes. At this point, the component's data has been updated, and the DOM has been re-rendered. This hook is useful for performing any tasks that need to be updated after the DOM has been re-rendered.
+
+Example:
+
+export default {
+  updated() {
+    console.log('Component has been updated');
+  }
+}
+Destruction Hooks
+Destruction hooks are called when a component is destroyed. They are useful for performing cleanup tasks, such as
+
+
+
+----------lifecyclehooks--ends-----------------------
+
+----------components-------------
+
+##component registration
+a component needs to be registered first so that vue can locate its implementation when it is encountered in a template
+we have two ways to register a component
+global and local 
+## global
+Globally registered components can be used in the template of any component within this application
+in sfc we need to first import the component/components to main.js file
+import MyComponent from './App.vue'
+than we use component function to register the component 
+app.component('MyComponent', MyComponent)
+to register multiple components we can chain component function
+app
+  .component('ComponentA', ComponentA)
+  .component('ComponentB', ComponentB)
+  .component('ComponentC', ComponentC)
+if component is registered Globally then we can also use its child as child also get registered globally and can be used in any sfc with using import 
+ ##drawbacks of globally registering the components
+Global registration prevents build systems from removing unused components
+If you globally register a component but end up not using it anywhere in your app, it will still be included in the final bundle.
+
+##local registtration
+to register the component locally you need to import it in any component
+<script setup>  
+import MyComponent from "./components/MyComponent"
+<script>
+<template> 
+<MyComponent />
+</template>
+we ca use kebabcase and pascalcase  both 
+ue supports resolving kebab-case tags to components registered using PascalCase. This means a component registered as MyComponent can be referenced in the template via both <MyComponent> and <my-component>. This allows us to use the same JavaScript component registration code regardless of template source.
+##properties(props)
+// props declaration
+props can be declared using defineProps() macro
+<script setup>
+const props = defineProps(['foo'])// can define types in this
+
+console.log(props.foo)
+//using object to difine props. you can also define the typeof/default value/require props 
+defineProps({
+  title: String,
+  likes: Number  // this only warn in console 
+})
+</script>
+we declare props in child component where it will be used.
+//PropsTest child
+<template>
+<h1>{{ foo }}</h1>
+</template>
+<script setup>
+import {defineProps} from 'vue'
+const props = defineProps(['foo'])
+
+console.log(props.foo)
+</script>
+// parent app.vue
+<template>
+
+<Props foo="first prop"/>
+<Props foo=" second prop"/>
+<props foo=" third prop" />
+
+</template>
+<script setup>
+// props
+import Props from "./components/PropsTest.vue"
+</script>
+## static props
+we provide static values just by using simple key what we declared in child component 
+//PropsTest child
+<template>
+<h1>{{ foo }}</h1>
+</template>
+<script setup>
+import {defineProps} from 'vue'
+const props = defineProps(['foo']) // isse use karre gye parent me prop pass karne ke liye
+
+console.log(props.foo)
+</script>
+// parent app.vue
+<template>
+
+<Props foo="first prop"/>
+<Props foo=" second prop"/>
+<props foo=" third prop" />
+
+</template>
+<script setup>
+// props
+import Props from "./components/PropsTest.vue"
+</script>
+## dynamic props
+we use v-bind to pass any type of data excluded string 
+we can also pass strings using v-bine
+<Props :foo="'string'" />
+## binding multiple props
+we can use object to bind multiple props
+e.g
+const post = {
+  id: 1,
+  title: 'My Journey with Vue'
+}
+<props v-bind ="post" />
+ equivalent to 
+ <props :id="post.id" :title="post.title" />
+ ##one way data flow
+we should not mutate value of prps in child component as it affects the parent component state
+it also affect the value of the 

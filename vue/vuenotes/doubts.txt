@@ -1,2 +1,19 @@
 v-for and v-if 
 how to use both in same tag 
+///not working ethier ask or do your own research
+In addition, type can also be a custom class or constructor function and the assertion will be made with an instanceof check. For example, given the following class:
+
+js
+class Person {
+  constructor(firstName, lastName) {
+    this.firstName = firstName
+    this.lastName = lastName
+  }
+}
+You could use it as a prop's type:
+
+js
+defineProps({
+  author: Person
+})
+Vue will use instanceof Person to validate whether the value of the author prop is indeed an instance of the Person class.

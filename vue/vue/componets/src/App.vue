@@ -1,5 +1,6 @@
 <template>
   <h1>{{ count }}</h1>
+  <h1>{{ userName }}</h1>
   <!-- <ChildComponent @parentFunc = "increase" /> -->
   <LoginComponent @login="profile" v-show="onLogin" />
   <ProfileCmponent :user-name="userName" v-show="loginedFlag"/>
@@ -7,7 +8,7 @@
 
 <script setup>
 // import ChildComponent from './components/ChildComponent.vue';
-import { ref, defineEmits } from 'vue';
+import { ref} from 'vue';
 import LoginComponent from "./components/LoginComponent.vue";
 import ProfileCmponent from "./components/ProfileCmponent.vue"
 let loginedFlag = ref(false);
@@ -34,13 +35,15 @@ let userName =ref("")
 // )
 let profile = (name) => {
   console.log(name)
-  emit("login",{name})
-  console.log("yaha se")
-  if (name === "a"|"b"|"c"
+  // emit("login",{name})
+
+  if (name === "a"|| name==="c"
   ) {
+    let test = ref(name)
+    console.log("yaha se")
     loginedFlag.value = true
     onLogin.value=false;
-    userName = name
+    userName = test
     return true
   }
   else {
@@ -51,5 +54,5 @@ let profile = (name) => {
 
   
 }
-const emit = defineEmits(["login"])
+// const emit = defineEmits(["login"])
 </script> 

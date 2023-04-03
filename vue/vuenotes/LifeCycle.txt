@@ -1,0 +1,2 @@
+image of lifecycle hooks cycle
+https://vuejs.org/assets/lifecycle.16e4c08e.png

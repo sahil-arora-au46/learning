@@ -76,7 +76,7 @@ note :-
 --------------------------------------------------
 The git reset [file] command is used to unstage changes made to a file and move it back to the working directory. This command removes the changes made to the file from the staging area, but it does not delete or modify the changes made to the file in the working directory.
 ----
-in simple word
+in simple word 
 git reset filename
 unstage a file while retaining the changes in working directory
 git reset 
